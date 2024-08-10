@@ -1,6 +1,8 @@
 # Strategy Pattern
 
-## The Strategy Pattern defines a family of behaviors or algorithms, allowing them to be used interchangeably based on the desired composition. This pattern is particularly useful when an object needs to change its behavior at runtime.
+## Definition:
+
+The Strategy Pattern defines a family of behaviors or algorithms, allowing them to be used interchangeably based on the desired composition. This pattern is particularly useful when an object needs to change its behavior at runtime.
 
 ### 1. Character (Extended) - Inheritance Section
 
@@ -76,10 +78,12 @@ hero.set_weapon_behaviour(KnifeBehaviour())
 hero.attack()  # Output: Stab Stab!
 ```
 
-Use Case:
+## Use Case:
+
 The Strategy Pattern is useful in any program that requires varying behaviors that an object can choose from at runtime. These varying behaviors are encapsulated as algorithms that are distinct and may change over time. This pattern provides flexibility and enables the easy addition of new behaviors without modifying existing code.
 
-Summary
+## Summary:
+
 By using the Strategy Pattern, we decouple the behavior from the character, making it easier to add new behaviors or modify existing ones without affecting the character's code. This enhances the maintainability and scalability of the system.
 ````
 

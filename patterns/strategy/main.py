@@ -1,30 +1,30 @@
 from abc import ABC, abstractmethod
 
 # Define the Payment Behavior Interface:
-class PaymentStrategy(ABC):
+class IPaymentStrategy(ABC):
     @abstractmethod
     def pay(self, amount):
         pass
 
 # Implement Concrete Payment Strategies:
-class CreditCardPayment(PaymentStrategy):
+class CreditCardPayment(IPaymentStrategy):
     def pay(self, amount):
         print(f"Paid {amount} using Credit Card")
 
-class PayPalPayment(PaymentStrategy):
+class PayPalPayment(IPaymentStrategy):
     def pay(self, amount):
         print(f"Paid {amount} using PayPal")
 
-class CryptoPayment(PaymentStrategy):
+class CryptoPayment(IPaymentStrategy):
     def pay(self, amount):
         print(f"Paid {amount} using Cryptocurrency")
 
 # Create the Context Class (PaymentProcessor):
 class PaymentProcessor:
-    def __init__(self, payment_strategy: PaymentStrategy):
+    def __init__(self, payment_strategy: IPaymentStrategy):
         self.payment_strategy = payment_strategy
 
-    def set_payment_strategy(self, payment_strategy: PaymentStrategy):
+    def set_payment_strategy(self, payment_strategy: IPaymentStrategy):
         self.payment_strategy = payment_strategy
 
     def process_payment(self, amount):

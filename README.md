@@ -84,9 +84,14 @@ audi.drive()        # Output: Vroom Vroom
 1. Separate things that change or vary from those that stay the same.
 2. Program to an Interface, not an Implementation.
 3. Favour Composition over Inheritance.
+4. Strive for loosely coupled designs for objects that interact. 
 
 ## Design Patterns
 
 ### 1. Strategy Pattern - Payment Processing System
 
 **Example**: Payment Processing System. This system can support multiple payment methods such as *credit card*, *PayPal*, and *cryptocurrency*. Each payment method is a strategy that can be selected at runtime.
+
+## 2. Observer Pattern - Weather Monitoring System
+
+**Example**: Weather Monitoring System. This system supports notifying multiple weather displays, such as *Current Conditions*, *Weather Statistics*, and *Simple Forecasts*, of any change in weather conditions. Each weather display subscribes to a Central Weather Data Object, which is then responsible for pushing data to the displays at runtime.
