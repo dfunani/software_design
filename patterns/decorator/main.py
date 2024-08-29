@@ -192,7 +192,10 @@ class Whip(ICondiment):
 
     def price(self) -> float:
         return self.beverage.price() + (self.__price__ * (1 - self.__discount__))
-    
+
+print("===================== Here is Your Receipt =====================") 
 drink = Whip(Espresso())
 drink.discount = 0.5
-print(f"{"\n".join([f"{description}   {price}" for description, price in drink.description])}\nTotal    {drink.price()}")
+max_price = max([len(str(price)) for _, price in drink.description])
+max_desc = max([len(desc) for desc, _ in drink.description])
+print(f"{"\n".join([f"{description:{max_desc}}  {price}" for description, price in drink.description])}\n{" ":{max_desc}}  {"-"*max_price}\n{"Total":{max_desc}}  {drink.price()}")
