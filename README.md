@@ -86,6 +86,7 @@ audi.drive()        # Output: Vroom Vroom
 3. Favour Composition over Inheritance.
 4. Strive for loosely coupled designs for objects that interact.
 5. Classes should be open for extension, but closed for modification.
+6. Dependency Inversion Principle: Depend upon abstractions. Not upon concrete implementations.
 
 ## Design Patterns
 
@@ -100,3 +101,7 @@ audi.drive()        # Output: Vroom Vroom
 ### 3. Decorator Pattern - Coffee Shop
 
 Example: A coffee shop can offer a variety of coffee drinks, such as *Espresso*, *Latte*, and *Cappuccino*. Additional **toppings** and **flavors**, like *milk*, *sugar*, and *syrup*, can be added dynamically to create different variations of coffee. The Decorator pattern allows you to combine base coffee drinks with various toppings and flavors to create customized products.
+
+### 4. Factory Pattern - Pizza Shop
+
+Example: A Pizza Shop offers various types of pizzas, such as *Pepperoni*, *Margherita*, and *Hawaiian*. Each pizza has its own specific ingredients and preparation method. The Factory Pattern provides a way to create different pizza objects without exposing their creation logic.
