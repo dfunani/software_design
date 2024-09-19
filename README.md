@@ -105,3 +105,7 @@ Example: A coffee shop can offer a variety of coffee drinks, such as *Espresso*,
 ### 4. Factory Pattern - Pizza Shop
 
 Example: A Pizza Shop offers various types of pizzas, such as *Pepperoni*, *Margherita*, and *Hawaiian*. Each pizza has its own specific ingredients and preparation method. The Factory Pattern provides a way to create different pizza objects without exposing their creation logic.
+
+### 5. Singleton Pattern - Logging System
+
+In a logging system, it's often desirable to have only one instance of a logger class to ensure consistent logging behavior across the application. The Singleton Pattern guarantees that there's only one instance of the logger, preventing potential conflicts and ensuring that all log messages are handled in the same way.
