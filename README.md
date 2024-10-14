@@ -109,3 +109,7 @@ Example: A Pizza Shop offers various types of pizzas, such as *Pepperoni*, *Marg
 ### 5. Singleton Pattern - Logging System
 
 In a logging system, it's often desirable to have only one instance of a logger class to ensure consistent logging behavior across the application. The Singleton Pattern guarantees that there's only one instance of the logger, preventing potential conflicts and ensuring that all log messages are handled in the same way.
+
+### 6. Command Pattern - Home Automation System
+
+In a home automation system, users interact with various devices (e.g., lights, thermostats and TVs) through different interfaces (e.g., mobile app, voice control). Managing these interactions can become complex and error-prone. The Command Pattern decouples the object that invokes a request (the invoker) from the one that knows how to perform it (the receiver).

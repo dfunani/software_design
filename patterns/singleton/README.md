@@ -1,6 +1,6 @@
 # Singleton Pattern
 
-## Definition:
+## Definition
 
 The Singleton Pattern ensures that a class has only one instance and provides a global point of access to it. This prevents multiple instances of the class from being created, which can lead to inconsistencies or unexpected behavior.
 
@@ -40,10 +40,10 @@ logger2.info("Hello World!")
 print(logger1 is logger2)```
 ```
 
-## Use Case:
+## Use Case
 
 The Singleton Pattern is valuable in scenarios where you need to ensure that a class has only one instance throughout the application, providing a global point of access to that instance. This is useful for managing shared resources, controlling access to critical data, or implementing global configuration settings.
 
-## Summary:
+## Summary
 
 A singleton class acts as a central authority, guaranteeing that there's only one instance of itself. This prevents multiple instances from being created, which can lead to inconsistencies or unexpected behavior. Other parts of the application can access this single instance to interact with the shared resource or configuration.
