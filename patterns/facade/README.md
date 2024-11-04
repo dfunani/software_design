@@ -1,170 +1,171 @@
-# Command Pattern
+# Adapter Pattern
 
 ## Definition
 
-The Command Pattern encapsulates a request as an object, thereby letting you parameterize other objects with different requests, queue or log requests, and support undoable operations. This separation provides flexibility and allows for:
+The Facade Pattern provides a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.
 
-1. Undo/Redo: Commands can be stored in a history, allowing users to undo or redo actions.
-2. Macros: Multiple commands can be grouped together into a single macro, simplifying complex tasks.
-3. Queueing: Commands can be queued for execution, providing a non-blocking mechanism for processing requests.
-4. Logging: Commands can be logged for auditing or debugging purposes.
-
-### Home Automation - Command
-
-1. Command Interface: Defines a common interface for all commands.
+### Complex SubSystems
 
     ```python
-    from abc import ABC, abstractmethod
+    class Amplifier:
+        def on(self):
+            print("Amplifier turned on")
 
-    class ICommand(ABC):
-        def __init__(self, receiver: "IReceiver"):
-            self.receiver = receiver
+        def set_input_source(self, source):
+            print(f"Amplifier input source set to {source}")
 
-        @abstractmethod
-        def execute(self):
-            pass
+        def set_surround_sound_mode(self):
+            print("Amplifier set to surround sound mode")
+
+        def set_volume(self, level):
+            print(f"Amplifier volume set to {level}")
+
+        def off(self):
+            print("Amplifier turned off")
+
+    class Projector:
+        def on(self):
+            print("Projector turned on")
+
+        def wide_screen_mode(self):
+            print("Projector in wide screen mode")
+
+        def off(self):
+            print("Projector turned off")
+
+    class Lights:
+        def dim(self, level):
+            print(f"Lights dimmed to {level}%")
+
+        def brighten(self, level):
+            print(f"Lights brightened to {level}%")
+
+    class BluRayPlayer:
+        def on(self):
+            print("Blu-ray player turned on")
+
+        def open_tray(self):
+            print("Blu-ray player tray opened")
+
+        def play(self):
+            print("Blu-ray player playing")
+
+        def stop(self):
+            print("Blu-ray player stopped")
+
+        def close_tray(self):
+            print("Blu-ray player tray closed")
+
+        def off(self):
+            print("Blu-ray player turned off")
+
+    class CableBox:
+        def on(self):
+            print("Cable box turned on")
+
+        def tune_channel(self, channel):
+            print(f"Cable box tuned to channel {channel}")
+
+        def off(self):
+            print("Cable box turned off")
     ```
 
-2. Concrete Commands: Implement the Command interface and encapsulate the receiver and the action to be performed.
+### Simplified Facade System
 
     ```python
-    class DefaultCommand(ICommand):
-        def execute(self):
-            print("I Am The Default Behaviour!")
+    class HomeTheaterFacade:
+        def __init__(self, amplifier, projector, lights, blu_ray_player, cable_box):
+            self.amplifier = amplifier
+            self.projector = projector
+            self.lights = lights
+            self.blu_ray_player = blu_ray_player
+            self.cable_box = cable_box
 
+        def watch_movie(self):
+            print("Watch Movie:")
+            self.lights.dim(10)
+            self.projector.on()
+            self.projector.wide_screen_mode()
+            self.amplifier.on()
+            self.amplifier.set_input_source("DVD")
+            self.amplifier.set_surround_sound_mode()
+            self.amplifier.set_volume(5)
+            self.blu_ray_player.on()
+            self.blu_ray_player.open_tray()
+            self.blu_ray_player.play()
 
-    class LightOnCommand(ICommand):
-        def execute(self):
-            self.receiver.execute(self)
+        def watch_tv(self):
+            print("Watch TV:")
+            self.lights.dim(10)
+            self.projector.on()
+            self.projector.wide_screen_mode()
+            self.amplifier.on()
+            self.amplifier.set_input_source("TV")
+            self.amplifier.set_volume(5)
+            self.cable_box.on()
+            self.cable_box.tune_channel(5)
 
+        def end_activity(self):
+            print("End Activity:")
+            self.blu_ray_player.stop()
+            self.blu_ray_player.close_tray()
+            self.blu_ray_player.off()
+            self.cable_box.off()
+            self.amplifier.set_volume(0)
+            self.amplifier.off()
+            self.projector.off()
+            self.lights.brighten(100)
 
-    class LightOffCommand(ICommand):
-        def execute(self):
-            self.receiver.execute(self)
+    amplifier = Amplifier()
+    projector = Projector()
+    lights = Lights()
+    blu_ray_player = BluRayPlayer()
+    cable_box = CableBox()
 
+    home_theater = HomeTheaterFacade(amplifier, projector, lights, blu_ray_player, cable_box)
 
-    class ThermostatUpCommand(ICommand):
-        def execute(self):
-            self.receiver.execute(self)
-
-
-    class ThermostatDownCommand(ICommand):
-        def execute(self):
-            self.receiver.execute(self)
-    
-    ```
-
-3. Receiver Interface: Defines the interface for objects that can execute commands.
-
-    ```python
-    class IReceiver(ABC):
-        def __init__(self, name: str):
-            self.name = name
-
-        @abstractmethod
-        def execute(self):
-            pass
-    ```
-
-4. Concrete Receivers: Implement the Receiver interface (Devices).
-
-    ```python
-    class Light(IReceiver):
-        class __STATES(Enum):
-            ON = "On"
-            OFF = "Off"
-
-        def __init__(self, name: str):
-            super().__init__(name)
-            self.state = self.__STATES.OFF
-        
-        def display(self):
-            print(f"I am a {self.name} Light - And I am Currently `{self.state}`")
-
-        def execute(self, command: ICommand):
-            if isinstance(command, LightOnCommand):
-                self.state = self.__STATES.ON.value
-            elif isinstance(command, LightOffCommand):
-                self.state = self.__STATES.OFF.value
-
-            self.display()
-
-
-    class Thermostat(IReceiver):
-        __TEMP_MAX = 40
-        __TEMP_MIN = -20
-
-        def __init__(self, name: str):
-            super().__init__(name)
-            self.state = 20
-        
-        def display(self):
-            print(f"I am a {self.name} Thermostat - And I am Currently `{self.state}°C`")
-
-        def execute(self, command: ICommand):
-            if isinstance(command, ThermostatUpCommand):
-                self.state += 1
-            elif isinstance(command, ThermostatDownCommand):
-                self.state -= 1
-
-            self.state = min(self.state, self.__TEMP_MAX)
-            self.state = max(self.__TEMP_MIN, self.state)
-            self.display()
-    ```
-
-5. Invoker: Holds a reference to a Command object and executes it.
-
-    ```python
-    class RemoteControl:
-        def __init__(self):
-            self.slots = [DefaultCommand(None)] * 7
-
-        def set_command(self, slot, command):
-            self.slots[slot] = command
-
-        def press_button(self, slot):
-            self.slots[slot].execute()
-    ```
-
-6. Client: Creates Concrete Commands and passes them to the Invoker.
-
-    ```python
-    living_room_light = Light("Living Room")
-    bedroom_thermostat = Thermostat("Bedroom")
-
-    remote = RemoteControl()
-
-    remote.set_command(0, LightOnCommand(living_room_light))
-    remote.set_command(1, LightOffCommand(living_room_light))
-    remote.set_command(2, ThermostatUpCommand(bedroom_thermostat))
-    remote.set_command(3, ThermostatDownCommand(bedroom_thermostat))
-
-    remote.press_button(0)
-    remote.press_button(1)
-    remote.press_button(2)
-    remote.press_button(3)
-    remote.press_button(4)
+    home_theater.watch_movie()
+    home_theater.end_activity()
+    home_theater.watch_tv()
+    home_theater.end_activity()
     ```
 
 ## Benefits
 
-Decoupling: Separates the invoker from the receiver, improving flexibility and maintainability.
-Undo/Redo: Enables users to undo or redo actions.
-Macros: Allows for grouping multiple commands into a single action.
-Queueing: Provides a non-blocking mechanism for processing commands.
-Logging: Facilitates auditing and debugging.
+- Simplified Interface: The facade class provides a simple interface to control the complex system.
+- Loose Coupling: The facade class decouples the client from the complex subsystems. This means that changes to the underlying subsystems can be made without affecting the facade class or the client code.
+- Improved Maintainability: The facade class can be updated to accommodate new devices or features without affecting the existing client code.
+- Reduced Complexity: The facade hides the complexity of the underlying subsystems, making the system easier to understand and use.
+- Reusability: The facade can be reused in different contexts, such as a smart home system or a commercial theater.
 
 ## Use Case
 
-The Command Pattern is valuable in scenarios where you wish to decouple the invoker from the receiver, improving flexibility and maintainability. Providing your program with additional benefits:
+The Facade Pattern is a versatile design pattern that can be applied in various scenarios. Here are some common use cases:
 
-1. Undo/Redo: Enables users to undo or redo actions.
-2. Macros: Allows for grouping multiple commands into a single action.
-3. Queueing: Provides a non-blocking mechanism for processing commands.
-4. Logging: Facilitates auditing and debugging.
+1. Complex Subsystem Simplification
 
-By applying the Command Pattern, a program can achieve a more modular, flexible, and user-friendly design.
+   - Home Theater System: As demonstrated in the previous example, the Facade Pattern can simplify the control of complex home theater systems.
+
+   - Database Systems: A Facade can provide a simplified interface for interacting with a complex database system, hiding the underlying SQL queries and database connections.
+
+2. Legacy System Integration
+
+   - Legacy APIs: A Facade can wrap a legacy API with a more modern interface, making it easier to integrate with new systems.
+
+3. Third-Party Library Abstraction
+
+   - Complex Libraries: A Facade can provide a simpler interface to a complex third-party library, hiding its internal complexities.
+
+4. Microservices Architecture
+
+   - Service Orchestration: A Facade can be used to orchestrate multiple microservices, providing a unified interface to clients.
+
+5. GUI Toolkits
+
+   - Abstraction Layer: A Facade can provide a simplified interface to a complex GUI toolkit, making it easier to use and customize.
+
+By using the Facade Pattern, you can improve the usability, maintainability, and flexibility of your software systems.
 
 ## Summary
 
-The Command Pattern allows decoupling the invoker (button press) from the receiver (light, thermostat) enabling flexibility and features like Undo/Redo, Macros, Queueing, and Logging. It promotes modularity and user-friendliness.
+The Facade Pattern is a structural design pattern that simplifies complex systems by providing a unified interface. It hides the complexity of underlying subsystems, making them easier to use and understand.

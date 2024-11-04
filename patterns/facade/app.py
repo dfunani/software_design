@@ -1,100 +1,69 @@
-from abc import ABC, abstractmethod
+from typing import List
 
-class ICommand(ABC):
-    @abstractmethod
-    def execute(self):
-        pass
+class IComponent:
+    """ Interface for GUI components """
+    pass
 
-    @abstractmethod
-    def undo(self):
-        pass
+class Window(IComponent):
+    """ Represents a window in the GUI """
 
+    __components: List[IComponent] = []
 
-class CutCommand(ICommand):
-    def __init__(self, text_editor, start, end):
-        self.text_editor = text_editor
-        self.start = start
-        self.end = end
-        self.deleted_text = None
+    def __init__(self, title: str):
+        self.title = title
 
-    def execute(self):
-        self.deleted_text = self.text_editor.delete_text(self.start, self.end)
-        return self.deleted_text
+    @property
+    def components(self) -> List[IComponent]:
+        return self.__components
 
-    def undo(self):
-        self.text_editor.insert_text(self.start, self.deleted_text)
+    def add_component(self, component: IComponent):
+        self.__components.append(component)
 
+    def show(self):
+        print(f"Showing window: {self.title}")
 
-class CopyCommand(ICommand):
-    def __init__(self, text_editor, start, end):
-        self.text_editor = text_editor
-        self.start = start
-        self.end = end
-        self.copied_text = None
-
-    def execute(self):
-        self.copied_text = self.text_editor.get_text(self.start, self.end)
-        return self.copied_text
-
-    def undo(self):
-        pass  # Copying doesn't need to be undone
+    def hide(self):
+        print(f"Hiding window: {self.title}")
 
 
-class PasteCommand(ICommand):
-    def __init__(self, text_editor, start, text):
-        self.text_editor = text_editor
-        self.start = start
+class Button(IComponent):
+    """ Represents a button in the GUI """
+
+    def __init__(self, text: str):
         self.text = text
 
-    def execute(self):
-        return self.text_editor.insert_text(self.start, self.text)
-
-    def undo(self):
-        return self.text_editor.delete_text(self.start, len(self.text))
+    def click(self):
+        print(f"Button '{self.text}' clicked")
 
 
-class TextEditor:
+class Label(IComponent):
+    """ Represents a label in the GUI """
+
+    def __init__(self, text: str):
+        self.text = text
+
+    def set_text(self, text: str):
+        self.text = text
+
+
+class GUIFacade:
+    """ Facade for creating and managing the user interface """
+
     def __init__(self):
-        self.text = ""
-        self.command_history = []
+        self.window = Window("My Application")
+        self.button = Button("Click Me")
+        self.label = Label("Hello, World!")
 
-    def insert_text(self, position, text):
-        self.text = self.text[:position] + text + self.text[position:]
-        return self.text
+    def create_ui(self):
+        self.window.show()
+        self.window.add_component(self.button)
+        self.window.add_component(self.label)
 
-    def delete_text(self, start, end):
-        deleted_text = self.text[start:end]
-        self.text = self.text[:start] + self.text[end:]
-        return deleted_text
-
-    def get_text(self, start, end):
-        return self.text[start:end]
-
-    def execute_command(self, command: ICommand):
-        self.command_history.append(command)
-        return command.execute()
-
-    def undo_command(self):
-        if self.command_history:
-            command = self.command_history.pop()
-            command.undo()
+    def handle_button_click(self):
+        self.button.click()
 
 
-# Example usage
-text = "Hello, world!"
-print(f"Given Text: {text}")
-
-text_editor = TextEditor()
-text_editor.insert_text(0, text)
-print(f"New Text Editor: {text}")
-
-cut_command = CutCommand(text_editor, 7, 12)
-cut_text = text_editor.execute_command(cut_command)
-print(f"Cut {cut_text} from {text} resulting {text_editor.text}")
-
-paste_command = PasteCommand(text_editor, 0, cut_command.deleted_text)
-paste_text = text_editor.execute_command(paste_command)
-print(f"Pasted {cut_text} resulting {text_editor.text}")
-
-text_editor.undo_command()  # Undoes the paste
-print(f"Command Undone: {text_editor.text}")
+# Usage:
+gui_facade = GUIFacade()
+gui_facade.create_ui()
+gui_facade.handle_button_click()

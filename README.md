@@ -112,8 +112,12 @@ In a logging system, it's often desirable to have only one instance of a logger 
 
 ### 6. Command Pattern - Home Automation System
 
-In a home automation system, users interact with various devices (e.g., lights, thermostats and TVs) through different interfaces (e.g., mobile app, voice control). Managing these interactions can become complex and error-prone. The Command Pattern decouples the object that invokes a request (the invoker) from the one that knows how to perform it (the receiver).
+In a home automation system, users interact with various devices (e.g., _lights_, _thermostats_ and _TVs_) through different interfaces (e.g., mobile app, voice control). Managing these interactions can become complex and error-prone. The Command Pattern decouples the object that invokes a request (the invoker) from the one that knows how to perform it (the receiver).
 
 ### 7. Adapter Pattern - Home Automation System
 
 In a home automation system, devices often have incompatible interfaces. The Adapter Pattern allows these devices to work together by translating requests from the system into commands understood by the specific device. This promotes flexibility and reusability, enabling the system to integrate various devices without modifying their core functionality.
+
+### 8. Facade Pattern - Home Theater System
+
+In a home theater system, controlling multiple devices (e.g., _amplifier_, _projector_, _lights_) can be complex. The Facade Pattern simplifies this by providing a unified interface to control the system. This allows users to manage the system with a single command, such as "Watch Movie," without needing to know the intricate details of each device's configuration.
