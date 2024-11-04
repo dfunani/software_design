@@ -92,19 +92,19 @@ audi.drive()        # Output: Vroom Vroom
 
 ### 1. Strategy Pattern - Payment Processing System
 
-**Example**: Payment Processing System. This system can support multiple payment methods such as *credit card*, *PayPal*, and *cryptocurrency*. Each payment method is a strategy that can be selected at runtime.
+**Example**: Payment Processing System. This system can support multiple payment methods such as _credit card_, _PayPal_, and _cryptocurrency_. Each payment method is a strategy that can be selected at runtime.
 
 ### 2. Observer Pattern - Weather Monitoring System
 
-**Example**: Weather Monitoring System. This system supports notifying multiple weather displays, such as *Current Conditions*, *Weather Statistics*, and *Simple Forecasts*, of any change in weather conditions. Each weather display subscribes to a Central Weather Data Object, which is then responsible for pushing data to the displays at runtime.
+**Example**: Weather Monitoring System. This system supports notifying multiple weather displays, such as _Current Conditions_, _Weather Statistics_, and _Simple Forecasts_, of any change in weather conditions. Each weather display subscribes to a Central Weather Data Object, which is then responsible for pushing data to the displays at runtime.
 
 ### 3. Decorator Pattern - Coffee Shop
 
-Example: A coffee shop can offer a variety of coffee drinks, such as *Espresso*, *Latte*, and *Cappuccino*. Additional **toppings** and **flavors**, like *milk*, *sugar*, and *syrup*, can be added dynamically to create different variations of coffee. The Decorator pattern allows you to combine base coffee drinks with various toppings and flavors to create customized products.
+Example: A coffee shop can offer a variety of coffee drinks, such as _Espresso_, _Latte_, and _Cappuccino_. Additional **toppings** and **flavors**, like _milk_, _sugar_, and _syrup_, can be added dynamically to create different variations of coffee. The Decorator pattern allows you to combine base coffee drinks with various toppings and flavors to create customized products.
 
 ### 4. Factory Pattern - Pizza Shop
 
-Example: A Pizza Shop offers various types of pizzas, such as *Pepperoni*, *Margherita*, and *Hawaiian*. Each pizza has its own specific ingredients and preparation method. The Factory Pattern provides a way to create different pizza objects without exposing their creation logic.
+Example: A Pizza Shop offers various types of pizzas, such as _Pepperoni_, _Margherita_, and _Hawaiian_. Each pizza has its own specific ingredients and preparation method. The Factory Pattern provides a way to create different pizza objects without exposing their creation logic.
 
 ### 5. Singleton Pattern - Logging System
 
@@ -113,3 +113,7 @@ In a logging system, it's often desirable to have only one instance of a logger 
 ### 6. Command Pattern - Home Automation System
 
 In a home automation system, users interact with various devices (e.g., lights, thermostats and TVs) through different interfaces (e.g., mobile app, voice control). Managing these interactions can become complex and error-prone. The Command Pattern decouples the object that invokes a request (the invoker) from the one that knows how to perform it (the receiver).
+
+### 7. Adapter Pattern - Home Automation System
+
+In a home automation system, devices often have incompatible interfaces. The Adapter Pattern allows these devices to work together by translating requests from the system into commands understood by the specific device. This promotes flexibility and reusability, enabling the system to integrate various devices without modifying their core functionality.
