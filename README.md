@@ -87,6 +87,9 @@ audi.drive()        # Output: Vroom Vroom
 4. Strive for loosely coupled designs for objects that interact.
 5. Classes should be open for extension, but closed for modification.
 6. Dependency Inversion Principle: Depend upon abstractions. Not upon concrete implementations.
+7. Least Knowledge: Talk only to your immediate friends.
+8. Hollywood Principle: Don't call us, we will call you.
+9. A class should only one reason to change. Single responsibility.
 
 ## Design Patterns
 
@@ -118,6 +121,14 @@ In a home automation system, users interact with various devices (e.g., _lights_
 
 In a home automation system, devices often have incompatible interfaces. The Adapter Pattern allows these devices to work together by translating requests from the system into commands understood by the specific device. This promotes flexibility and reusability, enabling the system to integrate various devices without modifying their core functionality.
 
-### 8. Facade Pattern - Home Theater System
+### 9. Template Method Pattern - Coffee Shop
 
-In a home theater system, controlling multiple devices (e.g., _amplifier_, _projector_, _lights_) can be complex. The Facade Pattern simplifies this by providing a unified interface to control the system. This allows users to manage the system with a single command, such as "Watch Movie," without needing to know the intricate details of each device's configuration.
+In a coffee shop, the process of making a cup of coffee is a well-defined sequence of steps, such as grinding beans, boiling water, and brewing. The Template Method Pattern allows the coffee shop to define the overall structure of this process, while individual steps (like the specific brewing method) can be customized for different coffee types (e.g., espresso, drip coffee). This provides a flexible framework for preparing a variety of coffee drinks, ensuring consistency while accommodating specific variations.
+
+### 10. Iterator Pattern - Diverse Menu Shop
+
+In a shop offering diverse menus for breakfast, lunch, and dinner, the Iterator Pattern provides a way to sequentially access items from each menu without exposing the underlying data structure. This allows the shop to manage different menu items efficiently and iterate over them using a unified interface. The iterator can be used to display menus, process orders, or perform other menu-related tasks, promoting a flexible and maintainable menu management system.
+
+### 11. Composite Pattern - Flexible GUI Component Structure
+
+In a complex GUI system, the Composite Pattern allows us to treat individual components and groups of components uniformly. This enables the creation of hierarchical structures, where components can contain other components, forming a tree-like structure. By using the Composite Pattern, we can simplify the traversal and manipulation of these hierarchical structures. This pattern is essential for building flexible and scalable GUI systems that can handle complex layouts and interactions.

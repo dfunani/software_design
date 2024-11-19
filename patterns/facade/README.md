@@ -1,4 +1,4 @@
-# Adapter Pattern
+# Facade Pattern
 
 ## Definition
 
