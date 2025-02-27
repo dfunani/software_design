@@ -132,3 +132,7 @@ In a shop offering diverse menus for breakfast, lunch, and dinner, the Iterator 
 ### 11. Composite Pattern - Flexible GUI Component Structure
 
 In a complex GUI system, the Composite Pattern allows us to treat individual components and groups of components uniformly. This enables the creation of hierarchical structures, where components can contain other components, forming a tree-like structure. By using the Composite Pattern, we can simplify the traversal and manipulation of these hierarchical structures. This pattern is essential for building flexible and scalable GUI systems that can handle complex layouts and interactions.
+
+### 12. State Machine Pattern - Financial Transactions
+
+The State Machine Pattern is a behavioral design pattern that allows an object to alter its behavior based on its internal state.  It's particularly useful for managing complex processes that involve distinct stages or statuses.  Think of it like a flowchart where the object's current state determines which transitions (actions) are allowed and which state it will move to next.  This pattern helps keep the logic organized and prevents invalid state transitions.
